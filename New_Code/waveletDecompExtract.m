@@ -27,7 +27,7 @@ function [ waveletDecompFeatures ] = waveletDecompExtract( besaOutput, electrode
             A8 = wrcoef('a',C,L,waveletFunction,8); %DELTA
             count=1;
             
-            % TODO: Normalize features
+            % Feature Extraction
             % Mean
             waveletDecompFeatures(1,count)=mean(D5);count=count+1;
             waveletDecompFeatures(1,count)=mean(D6);count=count+1;
@@ -46,6 +46,13 @@ function [ waveletDecompFeatures ] = waveletDecompExtract( besaOutput, electrode
             waveletDecompFeatures(1,count)=sum(D7.^2);count=count+1;
             waveletDecompFeatures(1,count)=sum(D8.^2);count=count+1;
             waveletDecompFeatures(1,count)=sum(A8.^2);count=count+1;
+            % Normalized Energy/Power
+            totalPower=sum(D5.^2)+sum(D6.^2)+sum(D7.^2)+sum(D8.^2)+sum(A8.^2)
+            waveletDecompFeatures(1,count)=sum(D5.^2)/totalPower;count=count+1;
+            waveletDecompFeatures(1,count)=sum(D6.^2)/totalPower;count=count+1;
+            waveletDecompFeatures(1,count)=sum(D7.^2)/totalPower;count=count+1;
+            waveletDecompFeatures(1,count)=sum(D8.^2)/totalPower;count=count+1;
+            waveletDecompFeatures(1,count)=sum(A8.^2)/totalPower;count=count+1;
             % Number of zero crossings
             hzcd = dsp.ZeroCrossingDetector;
             waveletDecompFeatures(1,count)=step(hzcd,D5);count=count+1;
