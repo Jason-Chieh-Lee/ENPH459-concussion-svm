@@ -14,4 +14,3 @@ for col = 1:colSize
 end
 
 end
-
