@@ -1,9 +1,10 @@
-function [ waveletDecompFeatures ] = waveletDecompExtract( besaOutput, electrodeNum, waveletFunction )
+function [ waveletDecompFeatures ] = waveletDecompExtract( besaOutput, waveletFunction )
 %waveletDecompExtract Extraction of Wavelet Decomposition Features
 %   Detailed explanation goes here
 
+for i = 1:27
 % Wavelet Decomposition
-            [C,L] = wavedec(besaOutput(:,electrodeNum),8,waveletFunction);
+            [C,L] = wavedec(besaOutput(:,i),8,waveletFunction);
 
 % Calculation The Coefficients Vectors
             cD1 = detcoef(C,L,1);                   %NOISY
@@ -29,38 +30,40 @@ function [ waveletDecompFeatures ] = waveletDecompExtract( besaOutput, electrode
             
             % Feature Extraction
             % Mean
-            waveletDecompFeatures(1,count)=mean(D5);count=count+1;
-            waveletDecompFeatures(1,count)=mean(D6);count=count+1;
-            waveletDecompFeatures(1,count)=mean(D7);count=count+1;
-            waveletDecompFeatures(1,count)=mean(D8);count=count+1;
-            waveletDecompFeatures(1,count)=mean(A8);count=count+1;
+            waveletDecompFeatures(i,count)=mean(D5);count=count+1;
+            waveletDecompFeatures(i,count)=mean(D6);count=count+1;
+            waveletDecompFeatures(i,count)=mean(D7);count=count+1;
+            waveletDecompFeatures(i,count)=mean(D8);count=count+1;
+            waveletDecompFeatures(i,count)=mean(A8);count=count+1;
             % STD
-            waveletDecompFeatures(1,count)=std(D5);count=count+1;
-            waveletDecompFeatures(1,count)=std(D6);count=count+1;
-            waveletDecompFeatures(1,count)=std(D7);count=count+1;
-            waveletDecompFeatures(1,count)=std(D8);count=count+1;
-            waveletDecompFeatures(1,count)=std(A8);count=count+1;
+            waveletDecompFeatures(i,count)=std(D5);count=count+1;
+            waveletDecompFeatures(i,count)=std(D6);count=count+1;
+            waveletDecompFeatures(i,count)=std(D7);count=count+1;
+            waveletDecompFeatures(i,count)=std(D8);count=count+1;
+            waveletDecompFeatures(i,count)=std(A8);count=count+1;
             % Energy/Power
-            waveletDecompFeatures(1,count)=sum(D5.^2);count=count+1;
-            waveletDecompFeatures(1,count)=sum(D6.^2);count=count+1;
-            waveletDecompFeatures(1,count)=sum(D7.^2);count=count+1;
-            waveletDecompFeatures(1,count)=sum(D8.^2);count=count+1;
-            waveletDecompFeatures(1,count)=sum(A8.^2);count=count+1;
+            waveletDecompFeatures(i,count)=sum(D5.^2);count=count+1;
+            waveletDecompFeatures(i,count)=sum(D6.^2);count=count+1;
+            waveletDecompFeatures(i,count)=sum(D7.^2);count=count+1;
+            waveletDecompFeatures(i,count)=sum(D8.^2);count=count+1;
+            waveletDecompFeatures(i,count)=sum(A8.^2);count=count+1;
             % Normalized Energy/Power
             totalPower=sum(D5.^2)+sum(D6.^2)+sum(D7.^2)+sum(D8.^2)+sum(A8.^2)
-            waveletDecompFeatures(1,count)=sum(D5.^2)/totalPower;count=count+1;
-            waveletDecompFeatures(1,count)=sum(D6.^2)/totalPower;count=count+1;
-            waveletDecompFeatures(1,count)=sum(D7.^2)/totalPower;count=count+1;
-            waveletDecompFeatures(1,count)=sum(D8.^2)/totalPower;count=count+1;
-            waveletDecompFeatures(1,count)=sum(A8.^2)/totalPower;count=count+1;
+            waveletDecompFeatures(i,count)=sum(D5.^2)/totalPower;count=count+1;
+            waveletDecompFeatures(i,count)=sum(D6.^2)/totalPower;count=count+1;
+            waveletDecompFeatures(i,count)=sum(D7.^2)/totalPower;count=count+1;
+            waveletDecompFeatures(i,count)=sum(D8.^2)/totalPower;count=count+1;
+            waveletDecompFeatures(i,count)=sum(A8.^2)/totalPower;count=count+1;
             % Number of zero crossings
             hzcd = dsp.ZeroCrossingDetector;
-            waveletDecompFeatures(1,count)=step(hzcd,D5);count=count+1;
-            waveletDecompFeatures(1,count)=step(hzcd,D6);count=count+1;
-            waveletDecompFeatures(1,count)=step(hzcd,D7);count=count+1;
-            waveletDecompFeatures(1,count)=step(hzcd,D8);count=count+1;
-            waveletDecompFeatures(1,count)=step(hzcd,A8);count=count+1;
+            waveletDecompFeatures(i,count)=step(hzcd,D5);count=count+1;
+            waveletDecompFeatures(i,count)=step(hzcd,D6);count=count+1;
+            waveletDecompFeatures(i,count)=step(hzcd,D7);count=count+1;
+            waveletDecompFeatures(i,count)=step(hzcd,D8);count=count+1;
+            waveletDecompFeatures(i,count)=step(hzcd,A8);count=count+1;
 
+end
 
+waveletDecompFeatures = transpose(waveletDecompFeatures);
 end
 
