@@ -1,4 +1,4 @@
-function [shannonEntropyMatrix,uniqueSymbols, probMatrix] = getShannonEntropy(eegMatrix, decimalPlace)
+function [shannonEntropyMatrix] = getShannonEntropy(eegMatrix, decimalPlace)
 %GETSHANNONENTROPY Takes in matrix of EEG data and returns a 1x27 matrix
 % with Shannon Entropy of each channel.
 %   Input: eegMatrix - a nx27 matrix of the eeg data for each channel
