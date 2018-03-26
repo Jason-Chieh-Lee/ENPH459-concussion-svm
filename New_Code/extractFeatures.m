@@ -20,7 +20,7 @@ eegMatrix = eegStruct.(fieldName);
 featureMatrix = zeros(30,cols);
 
 % Power Spectral Analysis
-
+powerSpectralMatrix = powerSpectral(eegMatrix);
 
 % Wavelet Decomposition Analysis
 
