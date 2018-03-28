@@ -26,5 +26,13 @@ correctResults = [1;1;0;1;1;0;1;1;1;1;0;1;1;1;1;0;0;1;1;1;1;0;1;1;1];
 
 accuracy = getAccuracy(svmResults,correctResults)
 %}
+%% Testing feature extraction label making
+%{
+concussedFilenames = [1;1;1;1;1;1;1;1;1;1]; %10 entries
+controlFilenames = [1;1;1;1;1;1;1;1;1;1;1;1;1;1;1];%15 entries
+labels = ones(length(concussedFilenames)+length(controlFilenames),1);
+labels(length(concussedFilenames)+1:length(labels), 1) = 0;% labels should have 10 1s and 15 0s
+%}
 
-features = extractFeatures("BN.mat")
+directory = 'C:\Users\Jason\Desktop\ENPH459\ENPH459_Concussion_SVM\New_Code';
+featurematrix = featureExtraction(directory);

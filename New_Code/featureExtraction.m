@@ -2,9 +2,9 @@
 %corresponding to EEG Data for conccussed patients and control patients
 %respectively.
 
-function featureExtraction
+function [featureMatrix,labels] = featureExtraction(directory)
 
-directory = 'C:\Users\Dylan\Desktop\New folder\Capstone Training Data';
+%directory = 'C:\Users\Dylan\Desktop\New folder\Capstone Training Data';
 
 featureMatrix = zeros(1, 891); %33x27 features extracted for each patient
 
@@ -14,6 +14,8 @@ concussedFilenames = {concussedDirectory.name};
 
 %Append concussed features to feature matrix
 for k = 1:length(concussedFilenames)
+    %strcat(directory,'\Concussed\',concussedFilenames{k})
+    %7==exists(strcat(directory,'\Concussed\',concussedFilenames{k}))
     eegMat = load(strcat(directory,'\Concussed\',concussedFilenames{k}));
     features = extractFeatures(eegMat);
     featureMatrix(k,:) = features(:)';
@@ -32,5 +34,6 @@ for j=1:length(controlFilenames)
     featureMatrix(k,:) = features(:)';    
 end
 
-
+labels = ones(length(concussedFilenames)+length(controlFilenames),1);
+labels(length(concussedFilenames)+1:length(labels), 1) = 0;
 end
