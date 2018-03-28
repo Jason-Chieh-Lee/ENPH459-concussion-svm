@@ -11,13 +11,17 @@ featureMatrix = zeros(1, 891); %33x27 features extracted for each patient
 %Extract .mat files corresponding to concussed patients 
 concussedDirectory = dir(strcat(directory, '\Concussed\*\*.mat'));
 concussedFilenames = {concussedDirectory.name};
+concussedFoldernames = {concussedDirectory.folder};
+
+%Extract Folder names from Concussed folder
+%dirFlags = [concussedDirectory.isdir];
+%subfolders = concussedDirectory(dirFlags);
+
 
 %Append concussed features to feature matrix
 for k = 1:length(concussedFilenames)
-    %strcat(directory,'\Concussed\',concussedFilenames{k})
-    %7==exists(strcat(directory,'\Concussed\',concussedFilenames{k}))
-    eegMat = load(strcat(directory,'\Concussed\',concussedFilenames{k}));
-    features = extractFeatures(eegMat);
+    %eegMat = load(strcat(concussedFoldernames{k},'\',concussedFilenames{k}));
+    features = extractFeatures(strcat(concussedFoldernames{k},'\',concussedFilenames{k}));
     featureMatrix(k,:) = features(:)';
 end
     
