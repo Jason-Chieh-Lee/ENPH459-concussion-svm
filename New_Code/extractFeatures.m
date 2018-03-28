@@ -22,12 +22,25 @@ featureMatrix = zeros(30,cols);
 % Power Spectral Analysis
 powerSpectralMatrix = powerSpectral(eegMatrix);
 
-% Wavelet Decomposition Analysis
+for k = 1:size(powerSpectralMatrix, 1)
+   featureMatrix(k,:) = powerSpectralMatrix(k,:); 
+end
 
+% Wavelet Decomposition Analysis
+waveletDecompMatrix = waveletDecompExtract(eegMatrix, db8);
+
+for j = 1:size(powerSpectralMatrix, 1)
+    k = k + 1;
+    featureMatrix(k,:) = waveletDecompMatrix(j,:);
+end
 
 % Shannon Entropy Analysis
 shannonEntropyMatrix = getShannonEntropy(eegMatrix);
 
-featureMatrix(30,:) = shannonEntropyMatrix;
+for j = 1:size(shannonEntropyMatrix, 1)
+    k = k + 1;
+    featureMatrix(k,:) = shannonEntropyMatrix(j,:);
+end
+
 end
 
