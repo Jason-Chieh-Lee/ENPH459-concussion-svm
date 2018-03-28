@@ -35,7 +35,7 @@ for j = 1:size(powerSpectralMatrix, 1)
 end
 
 % Shannon Entropy Analysis
-shannonEntropyMatrix = getShannonEntropy(eegMatrix);
+shannonEntropyMatrix = getShannonEntropy(eegMatrix,2);
 
 for j = 1:size(shannonEntropyMatrix, 1)
     k = k + 1;
