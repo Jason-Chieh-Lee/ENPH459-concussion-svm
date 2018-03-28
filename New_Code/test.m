@@ -26,3 +26,5 @@ correctResults = [1;1;0;1;1;0;1;1;1;1;0;1;1;1;1;0;0;1;1;1;1;0;1;1;1];
 
 accuracy = getAccuracy(svmResults,correctResults)
 %}
+
+features = extractFeatures("BN.mat")

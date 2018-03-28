@@ -17,7 +17,7 @@ fieldName = field{1};
 eegMatrix = eegStruct.(fieldName);
 
 [rows, cols] = size(eegMatrix);
-featureMatrix = zeros(30,cols);
+%featureMatrix = zeros(30,cols);
 
 % Power Spectral Analysis
 powerSpectralMatrix = powerSpectral(eegMatrix);
@@ -29,13 +29,13 @@ end
 % Wavelet Decomposition Analysis
 waveletDecompMatrix = waveletDecompExtract(eegMatrix, 'db8');
 
-for j = 1:size(powerSpectralMatrix, 1)
+for j = 1:size(waveletDecompMatrix, 1)
     k = k + 1;
     featureMatrix(k,:) = waveletDecompMatrix(j,:);
 end
 
 % Shannon Entropy Analysis
-shannonEntropyMatrix = getShannonEntropy(eegMatrix);
+shannonEntropyMatrix = getShannonEntropy(eegMatrix,2);
 
 for j = 1:size(shannonEntropyMatrix, 1)
     k = k + 1;
