@@ -10,29 +10,14 @@ function [shannonEntropyMatrix] = getShannonEntropy(eegMatrix, decimalPlace)
 [rowSize, colSize] = size(eegMatrix);
 shannonEntropyMatrix = zeros(1,colSize);
 
-% Get Shannon entropy of each channel (column)
 for col = 1:colSize
-    roundedMatrix = round(eegMatrix(:,col),decimalPlace);
-    % Get all the unique Symbols in the signal
-    uniqueSymbols = unique(roundedMatrix);
-    [uniqueRowSize, uniqueColSize] = size(uniqueSymbols);
+    roundedCol= round(eegMatrix(:,col),decimalPlace);
+    freqTable = tabulate(roundedCol);
+    freqTable(:,3) = freqTable(:,3)./100;
     
-    %Create a Matrix to store probability for each unique Symbol
-    probMatrix = zeros(1,uniqueRowSize);
-    
-    %For each unique symbol, find the number of times it's found in the
-    %channel
-    for symbolIndex = 1:uniqueRowSize
-        symbol = uniqueSymbols(symbolIndex);
-        
-        probMatrix(1, symbolIndex) = sum(roundedMatrix(:,1)==symbol);
-        
-    end
-    
-    % Calculate Shannon Entropy for given column
-    probMatrix = probMatrix./rowSize;
-    for i = 1:uniqueRowSize
-        shannonEntropyMatrix(1,col) = shannonEntropyMatrix(1,col)+(-probMatrix(1,i))*(log(probMatrix(1,i)));
+    [freqRow, freqCol] = size(freqTable);
+    for i =1:freqRow
+        shannonEntropyMatrix(1,col) = shannonEntropyMatrix(1,col)+(-freqTable(i,3))*(log(freqTable(i,3)));
     end
 end
 
