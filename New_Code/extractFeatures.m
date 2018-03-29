@@ -35,7 +35,7 @@ for j = 1:size(waveletDecompMatrix, 1)
 end
 
 % Shannon Entropy Analysis
-shannonEntropyMatrix = getShannonEntropy(eegMatrix,2);
+shannonEntropyMatrix = getShannonEntropy(eegMatrix,1);
 
 for j = 1:size(shannonEntropyMatrix, 1)
     k = k + 1;

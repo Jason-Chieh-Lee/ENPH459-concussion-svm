@@ -9,12 +9,12 @@ function [SVMModel] = createSVMModel(dataset,labels,svmMethod)
 %           dimensional parameters
 
 if svmMethod == "fitcsvm"
-    SVMModel = fitcsvm(dataset,labels,'Standardize',true,'KernelFunction','RBF','KernelScale','auto'); %default kernel is RBF
+    SVMModel = fitcsvm(dataset,labels,'Crossval','on','Standardize',true,'KernelFunction','RBF','KernelScale','auto'); %default kernel is RBF
 elseif svmMethod == "fitclinear"
     SVMModel = fitclinear(dataset,labels);
 end
-%Crossvalidate SVM Model
-SVMModel = crossval(SVMModel);
+
+SVMModel = SVMModel.Trained{1};
 
 end
 
