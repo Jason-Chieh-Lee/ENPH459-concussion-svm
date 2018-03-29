@@ -1,7 +1,20 @@
 %{
-matrix = [1 1;1 1;2 1;2 1;3 2;3 3];
+matrix = [1 1 1;
+    1 1 2;
+    2 1 3;
+    2 1 1;
+    3 2 2;
+    3 3 3];
 %[shannonmat, uniquesymbols, probmatrix] = getShannonEntropy(eegMatrix);
 shannonmat= getShannonEntropy(matrix, 1)
+
+
+eegStruct = load('BN.mat');
+field = fieldnames(eegStruct);
+fieldName = field{1};
+eegMatrix = eegStruct.(fieldName);
+
+entropy = getShannonEntropy(eegMatrix,2);
 %}
 
 %% formatFeaturesForTraining Testing
@@ -29,11 +42,14 @@ controlFilenames = [1;1;1;1;1;1;1;1;1;1;1;1;1;1;1];%15 entries
 labels = ones(length(concussedFilenames)+length(controlFilenames),1);
 labels(length(concussedFilenames)+1:length(labels), 1) = 0;% labels should have 10 1s and 15 0s
 %}
+%% Code to run to test SVM
 
-directory = 'C:\Git\SVM\ENPH459_Concussion_SVM\New_Code';
+%{
+directory = pwd;
 [fMatrix,labels] = featureExtraction(directory);
 % "fitcsvm" or "fitclinear"
 svmModel = createSVMModel(fMatrix,labels,"fitcsvm");
 %label = predict(SVMModel,X)
 testLabels = predict(svmModel,fMatrix);
 accuracy = getAccuracy(testLabels,labels);
+%}
