@@ -44,7 +44,7 @@ for i = 1:27
             waveletDecompFeatures(i,count)=sum(D6.^2);count=count+1;
             waveletDecompFeatures(i,count)=sum(A6.^2);count=count+1;
             % Normalized Energy/Power
-            totalPower=sum(D3.^2)+sum(D4.^2)+sum(D5.^2)+sum(D6.^2)+sum(A6.^2)
+            totalPower=sum(D3.^2)+sum(D4.^2)+sum(D5.^2)+sum(D6.^2)+sum(A6.^2);
             waveletDecompFeatures(i,count)=sum(D3.^2)/totalPower;count=count+1;
             waveletDecompFeatures(i,count)=sum(D4.^2)/totalPower;count=count+1;
             waveletDecompFeatures(i,count)=sum(D5.^2)/totalPower;count=count+1;

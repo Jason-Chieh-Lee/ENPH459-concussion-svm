@@ -7,7 +7,7 @@ function [featureMatrix] = extractFeatures(eegMat)
 %   decomposition, and shannon entropy functions to get a matrix back from
 %   each function. Then the matrices are combined into a feature matrix and
 %   returned.
-%   Input: eegMat - .mat file containing the EEG data
+%   Input: eegMat - string - name of the .mat file containing the EEG data
 %   Output: featureMatrix - 30x27 matrix containing features (row) of each
 %   channel (column)
 
@@ -17,7 +17,7 @@ fieldName = field{1};
 eegMatrix = eegStruct.(fieldName);
 
 [rows, cols] = size(eegMatrix);
-featureMatrix = zeros(30,cols);
+%featureMatrix = zeros(30,cols);
 
 % Power Spectral Analysis
 powerSpectralMatrix = powerSpectral(eegMatrix);
@@ -27,15 +27,15 @@ for k = 1:size(powerSpectralMatrix, 1)
 end
 
 % Wavelet Decomposition Analysis
-waveletDecompMatrix = waveletDecompExtract(eegMatrix, db8);
+waveletDecompMatrix = waveletDecompExtract(eegMatrix, 'db8');
 
-for j = 1:size(powerSpectralMatrix, 1)
+for j = 1:size(waveletDecompMatrix, 1)
     k = k + 1;
     featureMatrix(k,:) = waveletDecompMatrix(j,:);
 end
 
 % Shannon Entropy Analysis
-shannonEntropyMatrix = getShannonEntropy(eegMatrix);
+shannonEntropyMatrix = getShannonEntropy(eegMatrix,1);
 
 for j = 1:size(shannonEntropyMatrix, 1)
     k = k + 1;

@@ -25,16 +25,13 @@ for col = 1:colSize
     for symbolIndex = 1:uniqueRowSize
         symbol = uniqueSymbols(symbolIndex);
         
-        for i = 1:rowSize
-            if symbol == roundedMatrix(i,1)
-                probMatrix(1, symbolIndex)=probMatrix(1, symbolIndex)+1;
-            end
-        end
+        probMatrix(1, symbolIndex) = sum(roundedMatrix(:,1)==symbol);
+        
     end
     
     % Calculate Shannon Entropy for given column
+    probMatrix = probMatrix./rowSize;
     for i = 1:uniqueRowSize
-        probMatrix(1,i) = probMatrix(1,i)/rowSize;
         shannonEntropyMatrix(1,col) = shannonEntropyMatrix(1,col)+(-probMatrix(1,i))*(log(probMatrix(1,i)));
     end
 end
