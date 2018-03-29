@@ -4,8 +4,6 @@
 
 function [featureMatrix,labels] = featureExtraction(directory)
 
-%directory = 'C:\Users\Dylan\Desktop\New folder\Capstone Training Data';
-
 featureMatrix = zeros(1, 891); %33x27 features extracted for each patient
 
 %Extract .mat files corresponding to concussed patients 
