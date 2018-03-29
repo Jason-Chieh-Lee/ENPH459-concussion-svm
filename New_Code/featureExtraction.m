@@ -11,6 +11,7 @@ featureMatrix = zeros(1, 891); %33x27 features extracted for each patient
 %Extract .mat files corresponding to concussed patients 
 concussedDirectory = dir(strcat(directory, '\Concussed\*\*.mat'));
 concussedFilenames = {concussedDirectory.name};
+
 concussedFoldernames = {concussedDirectory.folder};
 
 %Extract Folder names from Concussed folder
@@ -28,13 +29,13 @@ end
 
 %Extract .mat files corresponding to non-concussed patients
 controlDirectory = dir(strcat(directory, '\Controls\*\*.mat'));
-controlFilenames = {controlDirector.name};
+controlFilenames = {controlDirectory.name};
+controlFoldernames = {controlDirectory.folder};
 
 %Append control features to control matrix
 for j=1:length(controlFilenames)
     k = k + 1;
-    eegMat = load(strcat(directory,'\Controls\',controlFilenames{j}));
-    features = extractFeatures(eegMat);
+    features = extractFeatures(strcat(controlFoldernames{j}, '\', controlFilenames{j}));
     featureMatrix(k,:) = features(:)';    
 end
 

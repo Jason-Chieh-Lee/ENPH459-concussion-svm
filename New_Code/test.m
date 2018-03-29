@@ -35,4 +35,9 @@ labels(length(concussedFilenames)+1:length(labels), 1) = 0;% labels should have 
 %}
 
 directory = 'C:\Users\Jason\Desktop\ENPH459\ENPH459_Concussion_SVM\New_Code';
-featurematrix = featureExtraction(directory);
+[fMatrix,labels] = featureExtraction(directory);
+% "fitcsvm" or "fitclinear"
+svmModel = createSVMModel(fMatrix,labels,"fitcsvm");
+%label = predict(SVMModel,X)
+testLabels = predict(svmModel,fMatrix);
+accuracy = getAccuracy(testLabels,labels);
