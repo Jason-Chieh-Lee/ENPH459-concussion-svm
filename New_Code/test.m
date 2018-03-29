@@ -30,7 +30,7 @@ labels = ones(length(concussedFilenames)+length(controlFilenames),1);
 labels(length(concussedFilenames)+1:length(labels), 1) = 0;% labels should have 10 1s and 15 0s
 %}
 
-directory = 'C:\Git\SVM\ENPH459_Concussion_SVM\New_Code';
+directory = pwd;
 [fMatrix,labels] = featureExtraction(directory);
 % "fitcsvm" or "fitclinear"
 svmModel = createSVMModel(fMatrix,labels,"fitcsvm");
