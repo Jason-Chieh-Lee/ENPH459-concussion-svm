@@ -18,8 +18,9 @@ featureMatrix = [];
 % the frequency bands that correspond to brain waves (i.e Alpha, Beta,
 % Gamma, Theta), and compute the mean absolute powers
 for i = 1:27
-    y = fft(eegMat(:,i));
-    
+    y = (abs(fft(eegMat(:,i))).^2)/numRows;
+    %f = (0:length(y)-1)*(250/length(y));
+    %plot(f(1:15000),y(1:15000))
     currentFrequency = frequencyIncrement;
     
     %theta = 4-8Hz
@@ -38,7 +39,7 @@ for i = 1:27
     end
     
     theta = theta(theta~=0);
-    thetaPower = (sum(abs(theta).^2))/numRows;
+    thetaPower = (sum(theta))/length(theta);
     featureMatrix(1,i) = thetaPower;
     
     alphaPower = meanPower(y, frequencyIncrement, numRows, 8, 12);
