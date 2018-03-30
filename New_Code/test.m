@@ -44,7 +44,7 @@ labels(length(concussedFilenames)+1:length(labels), 1) = 0;% labels should have 
 %}
 %% Code to run to test SVM
 
-%{
+
 directory = pwd;
 [fMatrix,labels] = featureExtraction(directory);
 % "fitcsvm" or "fitclinear"
@@ -52,4 +52,4 @@ svmModel = createSVMModel(fMatrix,labels,"fitcsvm");
 %label = predict(SVMModel,X)
 testLabels = predict(svmModel,fMatrix);
 accuracy = getAccuracy(testLabels,labels);
-%}
+

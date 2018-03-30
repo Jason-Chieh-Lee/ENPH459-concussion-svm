@@ -29,6 +29,6 @@ for k = 1:numRows
 end
     
 frequencyBand = frequencyBand(frequencyBand~=0);
-power = (sum(abs(frequencyBand).^2))/numRows;
+power = (sum(frequencyBand))/length(frequencyBand);
 
 end
