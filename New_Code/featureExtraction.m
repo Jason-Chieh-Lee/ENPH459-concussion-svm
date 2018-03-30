@@ -4,7 +4,7 @@
 
 function [featureMatrix,labels] = featureExtraction(directory)
 
-featureMatrix = zeros(1, 891); %33x27 features extracted for each patient
+%directory = 'C:\Users\Dylan\Desktop\New folder\Capstone Training Data';
 
 %Extract .mat files corresponding to concussed patients 
 concussedDirectory = dir(strcat(directory, '\Concussed\*\*.mat'));
