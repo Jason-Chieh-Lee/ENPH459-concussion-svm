@@ -20,7 +20,7 @@ accuracy = zeros(tries,3);
 for i=1:tries
     [kFoldsvmModel, holdoutsvmModel, leaveoutsvmModel] = createSVMModel(fMatrix,labels,"fitcsvm");
 
-    kfoldtestLabels = predict(kFoldsvmModel,fMatrix);
+    kfoldtestLabels = returnKfoldResults(kFoldsvmModel,fMatrix);
     kfoldAccuracy = getAccuracy(kfoldtestLabels,labels);
     
     accuracy(i,1) = kfoldAccuracy;
@@ -30,7 +30,7 @@ for i=1:tries
 
     accuracy(i,2) = holdoutAccuracy;
     
-    leaveouttestLabels = predict(leaveoutsvmModel,fMatrix);
+    leaveouttestLabels = returnLeaveOutResult(leaveoutsvmModel,fMatrix);
     leaveoutAccuracy = getAccuracy(leaveouttestLabels,labels);
     
     accuracy(i,3) = leaveoutAccuracy;

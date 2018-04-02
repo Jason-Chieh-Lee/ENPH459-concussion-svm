@@ -17,8 +17,6 @@ elseif svmMethod == "fitclinear"
     kFoldSVMModel = fitclinear(dataset,labels);
 end
 
-kFoldSVMModel = kFoldSVMModel.Trained{1};
 holdOutSVMModel = holdOutSVMModel.Trained{1};
-leaveOutSVMModel = leaveOutSVMModel.Trained{1};
 end
 
