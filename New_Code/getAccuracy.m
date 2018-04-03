@@ -1,6 +1,8 @@
 function [accuracyRate] = getAccuracy(svmLabels,actualLabels)
-%GETACCURACY Summary of this function goes here
-%   Detailed explanation goes here
+%GETACCURACY Returns accuracy of SVM predictions
+%   Inputs: svmLabels: predicted labels output by SVM
+%           actualLabels: actual correct labels confirmed by doctors
+%   Outputs: accuracyRate: the % of labels that were predicted correctly
 
 [rowSize, colSize] = size(svmLabels);
 missclass = 0;

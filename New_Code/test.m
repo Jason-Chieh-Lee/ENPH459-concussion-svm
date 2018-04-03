@@ -42,14 +42,5 @@ controlFilenames = [1;1;1;1;1;1;1;1;1;1;1;1;1;1;1];%15 entries
 labels = ones(length(concussedFilenames)+length(controlFilenames),1);
 labels(length(concussedFilenames)+1:length(labels), 1) = 0;% labels should have 10 1s and 15 0s
 %}
-%% Code to run to test SVM
 
-
-directory = pwd;
-[fMatrix,labels] = featureExtraction(directory);
-% "fitcsvm" or "fitclinear"
-svmModel = createSVMModel(fMatrix,labels,"fitcsvm");
-%label = predict(SVMModel,X)
-testLabels = predict(svmModel,fMatrix);
-accuracy = getAccuracy(testLabels,labels);
 
