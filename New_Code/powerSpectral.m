@@ -20,7 +20,11 @@ featureMatrix = [];
 for i = 1:27
     y = (abs(fft(eegMat(:,i))).^2)/numRows;
     %f = (0:length(y)-1)*(250/length(y));
-    %plot(f(1:15000),y(1:15000))
+    %h=plot(f(1:15000),y(1:15000))
+    %xlabel('Frequency (Hz)')
+    %ylabel('Power')
+    %title('Power Spectrum vs. Frequency')
+    % saveas(h,'filename.jpg')
     currentFrequency = frequencyIncrement;
     
     %theta = 4-8Hz

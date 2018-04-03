@@ -1,4 +1,4 @@
-function [SVMModel] = createSVMModel(dataset,labels,svmMethod)
+function [kFoldSVMModel, holdOutSVMModel, leaveOutSVMModel] = createSVMModel(dataset,labels,svmMethod)
 %CREATESVMMODEL_ Creates cross-validated SVM model based on loaded dataset, labels and
 %method (either "fitcsvm" or "fitclinear")
 %   Inputs: dataset - feature extraction matrix
@@ -9,12 +9,14 @@ function [SVMModel] = createSVMModel(dataset,labels,svmMethod)
 %           dimensional parameters
 
 if svmMethod == "fitcsvm"
-    SVMModel = fitcsvm(dataset,labels,'Crossval','on','Standardize',true,'KernelFunction','RBF','KernelScale','auto'); %default kernel is RBF
+    kFoldSVMModel = fitcsvm(dataset,labels,'Crossval','on','Standardize',true,'KernelFunction','RBF','KernelScale','auto');
+    holdOutSVMModel = fitcsvm(dataset,labels,'Crossval','on','Holdout',0.1,'Standardize',true,'KernelFunction','RBF','KernelScale','auto');
+    leaveOutSVMModel = fitcsvm(dataset,labels,'Crossval','on','Leaveout','on','Standardize',true,'KernelFunction','RBF','KernelScale','auto');
+
 elseif svmMethod == "fitclinear"
-    SVMModel = fitclinear(dataset,labels);
+    kFoldSVMModel = fitclinear(dataset,labels);
 end
 
-SVMModel = SVMModel.Trained{1};
-
+holdOutSVMModel = holdOutSVMModel.Trained{1};
 end
 

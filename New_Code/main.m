@@ -12,8 +12,31 @@ field = fieldnames(labels);
 fieldName = field{1};
 labels = labels.(fieldName);
 %% Testing of SVM Model below
-svmModel = createSVMModel(fMatrix,labels,"fitcsvm");
+%[kFoldsvmModel, holdoutsvmModel, leaveoutsvmModel] = createSVMModel(fMatrix,labels,"fitcsvm");
+tries = 1000;
+accuracy = zeros(tries,3);
 
 %label = predict(SVMModel,X)
-testLabels = predict(svmModel,fMatrix);
-accuracy = getAccuracy(testLabels,labels);
+for i=1:tries
+    [kFoldsvmModel, holdoutsvmModel, leaveoutsvmModel] = createSVMModel(fMatrix,labels,"fitcsvm");
+
+    kfoldtestLabels = returnKfoldResults(kFoldsvmModel,fMatrix);
+    kfoldAccuracy = getAccuracy(kfoldtestLabels,labels);
+    
+    accuracy(i,1) = kfoldAccuracy;
+    
+    holdouttestLabels = predict(holdoutsvmModel,fMatrix);
+    holdoutAccuracy = getAccuracy(holdouttestLabels,labels);
+
+    accuracy(i,2) = holdoutAccuracy;
+    
+    leaveouttestLabels = returnLeaveOutResult(leaveoutsvmModel,fMatrix);
+    leaveoutAccuracy = getAccuracy(leaveouttestLabels,labels);
+    
+    accuracy(i,3) = leaveoutAccuracy;
+
+end
+
+avgKfoldAccuracy = sum(accuracy(:,1))/tries;
+avgHoldOutAccuracy = sum(accuracy(:,2))/tries;
+avgLeaveOutAccuracy = sum(accuracy(:,3))/tries;
