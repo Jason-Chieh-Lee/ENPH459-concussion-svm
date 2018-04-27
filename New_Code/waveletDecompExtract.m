@@ -1,22 +1,24 @@
 function [ waveletDecompFeatures ] = waveletDecompExtract( besaOutput, waveletFunction )
 %waveletDecompExtract Extraction of Wavelet Decomposition Features
-%   Detailed explanation goes here
+%   Input:time series, “besaOutput”, and the wavelet function used for
+%   wavelet decomposition, waveletFunction
+%   Output: n x m matrix consisting of n features and m channels
 
 for i = 1:27
 % Wavelet Decomposition
             [C,L] = wavedec(besaOutput(:,i),6,waveletFunction);
 
 % Calculation The Coefficients Vectors
-            cD1 = detcoef(C,L,1);                   %NOISY
-            cD2 = detcoef(C,L,2);                   %NOISY
+            cD1 = detcoef(C,L,1);                   %NOISE
+            cD2 = detcoef(C,L,2);                   %NOISE
             cD3 = detcoef(C,L,3);                   %GAMMA
             cD4 = detcoef(C,L,4);                   %BETA
             cD5 = detcoef(C,L,5);                   %ALPHA
             cD6 = detcoef(C,L,6);                   %THETA
             cA6 = appcoef(C,L,waveletFunction,6);   %DELTA
             %%%% Calculation the Details Vectors and Approximate vectors
-            D1 = wrcoef('d',C,L,waveletFunction,1); %NOISY
-            D2 = wrcoef('d',C,L,waveletFunction,2); %NOISY
+            D1 = wrcoef('d',C,L,waveletFunction,1); %NOISE
+            D2 = wrcoef('d',C,L,waveletFunction,2); %NOISE
             D3 = wrcoef('d',C,L,waveletFunction,3); %GAMMA
             D4 = wrcoef('d',C,L,waveletFunction,4); %BETA
             D5 = wrcoef('d',C,L,waveletFunction,5); %ALPHA
@@ -38,11 +40,11 @@ for i = 1:27
             waveletDecompFeatures(i,count)=std(D6);count=count+1;
             waveletDecompFeatures(i,count)=std(A6);count=count+1;
             % Energy/Power
-            waveletDecompFeatures(i,count)=sum(D3.^2);count=count+1;
-            waveletDecompFeatures(i,count)=sum(D4.^2);count=count+1;
-            waveletDecompFeatures(i,count)=sum(D5.^2);count=count+1;
-            waveletDecompFeatures(i,count)=sum(D6.^2);count=count+1;
-            waveletDecompFeatures(i,count)=sum(A6.^2);count=count+1;
+%             waveletDecompFeatures(i,count)=sum(D3.^2);count=count+1;
+%             waveletDecompFeatures(i,count)=sum(D4.^2);count=count+1;
+%             waveletDecompFeatures(i,count)=sum(D5.^2);count=count+1;
+%             waveletDecompFeatures(i,count)=sum(D6.^2);count=count+1;
+%             waveletDecompFeatures(i,count)=sum(A6.^2);count=count+1;
             % Normalized Energy/Power
             totalPower=sum(D3.^2)+sum(D4.^2)+sum(D5.^2)+sum(D6.^2)+sum(A6.^2);
             waveletDecompFeatures(i,count)=sum(D3.^2)/totalPower;count=count+1;
@@ -50,7 +52,7 @@ for i = 1:27
             waveletDecompFeatures(i,count)=sum(D5.^2)/totalPower;count=count+1;
             waveletDecompFeatures(i,count)=sum(D6.^2)/totalPower;count=count+1;
             waveletDecompFeatures(i,count)=sum(A6.^2)/totalPower;count=count+1;
-            % Number of zero crossings
+            % Normalized Number of zero crossings
             hzcd = dsp.ZeroCrossingDetector;
             waveletDecompFeatures(i,count)=step(hzcd,D3);count=count+1;
             waveletDecompFeatures(i,count)=step(hzcd,D4);count=count+1;
