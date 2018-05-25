@@ -3,10 +3,10 @@
 % "fitcsvm" or "fitclinear"
 
 %% This section loads preprocessed labels and feature matrix. This is because this takes the longest
-fMatrix = load('featureMatrix.mat');
-field = fieldnames(fMatrix);
+featureMatrix = load('featureMatrix.mat');
+field = fieldnames(featureMatrix);
 fieldName = field{1};
-fMatrix = fMatrix.(fieldName);
+featureMatrix = featureMatrix.(fieldName);
 
 testMatrix = load('blindTestFeatures.mat');
 field = fieldnames(testMatrix);
@@ -23,7 +23,7 @@ tries = 1;
 accuracy = zeros(tries,3);
 
 for i=1:tries
-    [kFoldsvmModel, holdoutsvmModel, leaveoutsvmModel] = createSVMModel(fMatrix,labels,"fitcsvm");
+    [kFoldsvmModel, holdoutsvmModel, leaveoutsvmModel] = createSVMModel(featureMatrix,labels,"fitcsvm");
 
     kfoldtestLabels = returnKfoldResults(kFoldsvmModel,testMatrix);
     

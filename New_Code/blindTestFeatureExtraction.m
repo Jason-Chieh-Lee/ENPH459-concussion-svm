@@ -2,20 +2,13 @@
 %corresponding to EEG Data for conccussed patients and control patients
 %respectively.
 
-function [featureMatrix,labels] = blindTestFeatureExtraction(directory)
-
-%directory = 'C:\Users\Dylan\Desktop\New folder\Capstone Training Data';
+function [featureMatrix] = blindTestFeatureExtraction(directory)
 
 %Extract .mat files corresponding to concussed patients 
 concussedDirectory = dir(strcat(directory, '\Blind\*.mat'));
 concussedFilenames = {concussedDirectory.name};
 
 concussedFoldernames = {concussedDirectory.folder};
-
-%Extract Folder names from Concussed folder
-%dirFlags = [concussedDirectory.isdir];
-%subfolders = concussedDirectory(dirFlags);
-
 
 %Append concussed features to feature matrix
 for k = 1:length(concussedFilenames)
