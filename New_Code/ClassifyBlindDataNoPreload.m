@@ -1,5 +1,5 @@
-run('createAndSaveFeatureMatrixForTraining');
-run('createAndSaveBlindFeatureMatrix');
+createAndSaveFeatureMatrixForTraining;
+createAndSaveBlindFeatureMatrix;
 
 featureMatrixForTraining = load('featureMatrixForTraining.mat');
 field = fieldnames(featureMatrixForTraining);
